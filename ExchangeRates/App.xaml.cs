@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -76,7 +77,30 @@ namespace ExchangeRates
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+                SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+                rootFrame.Navigated += RootFrame_Navigated;
             }
+        }
+
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                Frame frame = Window.Current.Content as Frame;
+                if (frame.CanGoBack)
+                {
+                    frame.GoBack();
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility
+                = rootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible :
+                                        AppViewBackButtonVisibility.Collapsed;
         }
 
         /// <summary>

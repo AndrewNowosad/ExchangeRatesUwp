@@ -41,7 +41,6 @@ namespace ExchangeRates
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(1251));
                 string data = await reader.ReadToEndAsync();
-                //string data = await client.GetStringAsync(path);
                 xml.LoadXml(data);
             }
             catch

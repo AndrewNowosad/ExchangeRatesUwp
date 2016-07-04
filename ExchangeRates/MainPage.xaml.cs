@@ -32,5 +32,10 @@ namespace ExchangeRates
             else
                 icRates.ItemsSource = course;
         }
+
+        private void btSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPage));
+        }
     }
 }
