@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,15 +27,33 @@ namespace ExchangeRates
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            await ReloadData();
+        }
+
+        private async Task ReloadData()
+        {
+            pbLoading.Visibility = Visibility.Visible;
             await course.LoadCourse();
             if (course.Count == 0)
                 icRates.ItemsSource = new string[] { "Ошибка загрузки!" };
             else
                 icRates.ItemsSource = course;
+            pbLoading.Visibility = Visibility.Collapsed;
         }
 
-        private void btSettings_Click(object sender, RoutedEventArgs e)
+        private void tbPane_Click(object sender, RoutedEventArgs e)
         {
+            svMenu.IsPaneOpen = true;
+        }
+
+        private void tbBack_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+        }
+
+        private void tbSettings_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
             Frame.Navigate(typeof(SettingsPage));
         }
     }
