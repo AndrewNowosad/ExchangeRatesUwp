@@ -11,6 +11,7 @@ namespace ExchangeRates
         public int Nominal { get; }
         public string Name { get; }
         public float Value { get; }
+        public float ValueOf1Unit { get { return Value / Nominal; } }
 
         public static Valute Create(XmlNode nodeValute)
         {
