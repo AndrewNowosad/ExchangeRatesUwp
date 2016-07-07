@@ -8,11 +8,9 @@ namespace ExchangeRates
 {
     public sealed partial class MainPage : Page
     {
-        CbrCourse course;
-
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -22,14 +20,13 @@ namespace ExchangeRates
 
         private async Task ReloadData()
         {
-            course = new CbrCourse();
             pbLoading.Visibility = Visibility.Visible;
-            try {course.Load(await CbrApi.GetDailyQuotation());}
+            try {Singletone.Course.Load(await CbrApi.GetDailyQuotation());}
             catch { }
-            if (course.Count == 0)
+            if (Singletone.Course.Count == 0)
                 icRates.ItemsSource = new string[] { "Ошибка загрузки!" };
             else
-                icRates.ItemsSource = course;
+                icRates.ItemsSource = Singletone.Course;
             pbLoading.Visibility = Visibility.Collapsed;
         }
 
@@ -55,35 +52,41 @@ namespace ExchangeRates
             await ReloadData();
         }
 
+        private void tbAbout_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+            UpdateTiles();
+        }
+
         private void UpdateTiles()
         {
             TileUpdater updater = TileUpdateManager.CreateTileUpdaterForApplication();
-            string s =$@"<tile>
+            string s = $@"<tile>
                            <visual displayName='Exchange Rates'>
                              <binding template='TileSmall' hint-textStacking='center'>
                                <text hint-align='center' hint-style='body'>USD</text>
-                               <text hint-align='center'>{course["USD"].ValueOf1Unit:0.00} &#8381;</text>
+                               <text hint-align='center'>{Singletone.Course["USD"].ValueOf1Unit:0.00} &#8381;</text>
                              </binding>
                              <binding template='TileMedium' branding='name'>
-                               <text hint-wrap='true' hint-maxLines='2'>Курс {course.Date:d}:</text>
-                               <text hint-style='captionSubtle'>{course["USD"].Nominal} USD = {course["USD"].Value:0.00} руб.</text>
-                               <text hint-style='captionSubtle'>{course["EUR"].Nominal} EUR = {course["EUR"].Value:0.00} руб.</text>
-                               <text hint-style='captionSubtle'>{course["UAH"].Nominal} UAH = {course["UAH"].Value:0.00} руб.</text>
-                               <text hint-style='captionSubtle'>{course["CNY"].Nominal} CNY = {course["CNY"].Value:0.00} руб.</text>
+                               <text hint-wrap='true' hint-maxLines='2'>Курс {Singletone.Course.Date:d}:</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["USD"].Nominal} USD = {Singletone.Course["USD"].Value:0.00} руб.</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["EUR"].Nominal} EUR = {Singletone.Course["EUR"].Value:0.00} руб.</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["UAH"].Nominal} UAH = {Singletone.Course["UAH"].Value:0.00} руб.</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["CNY"].Nominal} CNY = {Singletone.Course["CNY"].Value:0.00} руб.</text>
                              </binding>
                              <binding template='TileWide' branding='nameAndLogo'>
-                               <text>Курсы валют на {course.Date:d}:</text>
-                               <text hint-style='captionSubtle'>{course["USD"]}</text>
-                               <text hint-style='captionSubtle'>{course["EUR"]}</text>
-                               <text hint-style='captionSubtle'>{course["UAH"]}</text>
-                               <text hint-style='captionSubtle'>{course["CNY"]}</text>
+                               <text>Курсы валют на {Singletone.Course.Date:d}:</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["USD"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["EUR"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["UAH"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["CNY"]}</text>
                              </binding>
                              <binding template='TileLarge' branding='nameAndLogo'>
-                               <text hint-wrap='true'>Курсы валют на {course.Date:d}:</text>
-                               <text hint-style='captionSubtle'>{course["USD"]}</text>
-                               <text hint-style='captionSubtle'>{course["EUR"]}</text>
-                               <text hint-style='captionSubtle'>{course["UAH"]}</text>
-                               <text hint-style='captionSubtle'>{course["CNY"]}</text>
+                               <text hint-wrap='true'>Курсы валют на {Singletone.Course.Date:d}:</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["USD"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["EUR"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["UAH"]}</text>
+                               <text hint-style='captionSubtle'>{Singletone.Course["CNY"]}</text>
                              </binding>
                            </visual>
                          </tile>";
@@ -91,12 +94,6 @@ namespace ExchangeRates
             document.LoadXml(s);
             TileNotification notification = new TileNotification(document);
             updater.Update(notification);
-        }
-
-        private void tbAbout_Click(object sender, RoutedEventArgs e)
-        {
-            svMenu.IsPaneOpen = false;
-            UpdateTiles();
         }
     }
 }

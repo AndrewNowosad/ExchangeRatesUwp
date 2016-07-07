@@ -92,6 +92,7 @@ namespace ExchangeRates
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.RequestedTheme = Singletone.AppTheme;
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility
                 = rootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible :
                                         AppViewBackButtonVisibility.Collapsed;

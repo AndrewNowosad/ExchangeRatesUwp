@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace ExchangeRates
@@ -13,7 +12,7 @@ namespace ExchangeRates
 
         public DateTime Date { get; private set; }
         public int Count { get { return Items.Count; } }
-        public Valute this[string ValuteCode] { get { return Items.Find(x => x.CharCode == ValuteCode.ToUpper()); } }
+        public Valute this[string ValuteCode] { get { return Items.Find(x => x.CharCode == ValuteCode?.ToUpper()); } }
 
         public void Load(XmlDocument xml)
         {
@@ -31,10 +30,7 @@ namespace ExchangeRates
                 Items.Add(Valute.Create(valute));
         }
 
-        internal void Load(Task<XmlDocument> task)
-        {
-            throw new NotImplementedException();
-        }
+        public XmlDocument GetXml() => xml;
 
         IEnumerator<Valute> IEnumerable<Valute>.GetEnumerator()
         {
