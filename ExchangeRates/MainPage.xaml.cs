@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace ExchangeRates
 {
     public sealed partial class MainPage : Page
     {
-        CbrCourse course = new CbrCourse();
+        CbrCourse course;
 
         public MainPage()
         {
@@ -34,8 +22,10 @@ namespace ExchangeRates
 
         private async Task ReloadData()
         {
+            course = new CbrCourse();
             pbLoading.Visibility = Visibility.Visible;
-            await course.LoadCourse();
+            try {course.Load(await CbrApi.GetDailyQuotation());}
+            catch { }
             if (course.Count == 0)
                 icRates.ItemsSource = new string[] { "Ошибка загрузки!" };
             else
@@ -71,8 +61,8 @@ namespace ExchangeRates
             string s =$@"<tile>
                            <visual displayName='Exchange Rates'>
                              <binding template='TileSmall' hint-textStacking='center'>
-                               <text hint-align='center' hint-style='body'>UAH</text>
-                               <text hint-align='center'>{course["UAH"].ValueOf1Unit:0.00} &#8381;</text>
+                               <text hint-align='center' hint-style='body'>USD</text>
+                               <text hint-align='center'>{course["USD"].ValueOf1Unit:0.00} &#8381;</text>
                              </binding>
                              <binding template='TileMedium' branding='name'>
                                <text hint-wrap='true' hint-maxLines='2'>Курс {course.Date:d}:</text>

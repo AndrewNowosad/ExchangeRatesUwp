@@ -20,14 +20,12 @@ namespace ExchangeRates
             XmlNode nominal = nodeValute["Nominal"];
             XmlNode name = nodeValute["Name"];
             XmlNode value = nodeValute["Value"];
-            return new Valute
-                (
-                int.Parse(numCode.InnerText),
+            return new Valute(
+                numCode.InnerText,
                 charCode.InnerText,
-                int.Parse(nominal.InnerText),
+                nominal.InnerText,
                 name.InnerText,
-                float.Parse(value.InnerText, cInfo)
-                );
+                value.InnerText);
         }
 
         public Valute(int NumCode, string CharCode, int Nominal, string Name, float Value)
