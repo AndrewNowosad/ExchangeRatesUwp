@@ -28,13 +28,14 @@ namespace ExchangeRates
             Frame.GoBack();
         }
 
-        private void cbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Singletone.AppTheme = (ElementTheme)cbTheme.SelectedIndex;
             RequestedTheme = Singletone.AppTheme;
+            await Singletone.SaveSettings();
         }
 
-        private void cbTileValute_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void cbTileValute_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Singletone.TileLinesCounter = Singletone.TileLinesMax;
             for (int i = Singletone.TileLinesMax - 1; i >= 0; --i)
@@ -51,6 +52,8 @@ namespace ExchangeRates
                         cbTileValute[j].IsEnabled = false;
                 }
             }
+            Singletone.UpdateTiles();
+            await Singletone.SaveSettings();
         }
     }
 }

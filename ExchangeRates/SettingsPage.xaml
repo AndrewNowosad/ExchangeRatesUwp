@@ -29,7 +29,7 @@
                 <ComboBoxItem>Темная</ComboBoxItem>
             </ComboBox>
             <TextBlock FontSize="18" TextWrapping="Wrap">Выберите до четырех валют для отображения на живой плитке:</TextBlock>
-            <TextBlock FontSize="12" TextWrapping="Wrap">На маленькой плитке будет отображаться только перый элемент</TextBlock>
+            <TextBlock FontSize="12" TextWrapping="Wrap">На маленькой плитке будет отображаться только первый элемент</TextBlock>
             <ComboBox Name="cbTileValute[0]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
             </ComboBox>
