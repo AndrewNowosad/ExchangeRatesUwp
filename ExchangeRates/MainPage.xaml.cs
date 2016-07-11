@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,8 +20,9 @@ namespace ExchangeRates
         private async Task ReloadData()
         {
             pbLoading.Visibility = Visibility.Visible;
-            try {Singletone.Course.Load(await CbrApi.GetDailyQuotation());}
-            catch { }
+            try {
+                Singletone.Course.Load(await CbrApi.GetDailyQuotation(DateTime.Today));
+            } catch { }
             if (Singletone.Course.Count == 0)
                 icRates.ItemsSource = new string[] { "Ошибка загрузки!" };
             else

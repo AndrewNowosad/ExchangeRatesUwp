@@ -58,25 +58,25 @@ namespace ExchangeRates
                 $@"<text hint-align='center' hint-style='base'>{TileLines[0]}</text>
                    <text hint-align='center'>{Course[TileLines[0]].ValueOf1Unit:0.00} &#8381;</text>";
 
-            string tileMediumContent = $@"<text>Курс {Course.Date:d}:</text>";
+            string tileMediumContent = $@"<text>Сегодня:</text>";
             for (int i = 0; i < TileLinesCounter; ++i)
                 tileMediumContent +=
-                    $@"<text hint-style='captionSubtle'>{Course[TileLines[i]].Nominal} USD = {Course[TileLines[i]].Value:0.00} &#8381;</text>";
+                    $@"<text hint-style='captionSubtle'>{Course[TileLines[i]].Nominal} {TileLines[i]} = {Course[TileLines[i]].Value:0.00} &#8381;</text>";
 
-            string tileWideContent = $@"<text>Курсы валют на {Course.Date:d}:</text>";
+            string tileWideContent = $@"<text>Сегодня:</text>";
             for (int i = 0; i < TileLinesCounter; ++i)
                 tileWideContent +=
                     $@"<text hint-style='captionSubtle'>{Course[TileLines[i]]}</text>";
 
             string s = $@"<tile>
-                           <visual displayName='Exchange Rates'>
+                           <visual displayName='Курсы валют ЦБ РФ'>
                              <binding template='TileSmall' hint-textStacking='center'>
                                {tileSmallContent}
                              </binding>
                              <binding template='TileMedium' branding='name'>
                                {tileMediumContent}
                              </binding>
-                             <binding template='TileWide' branding='nameAndLogo'>
+                             <binding template='TileWide' branding='name'>
                                {tileWideContent}
                              </binding>
                            </visual>
