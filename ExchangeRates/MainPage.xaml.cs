@@ -19,10 +19,9 @@ namespace ExchangeRates
 
         private async Task ReloadData()
         {
+            //icRates.ItemsSource = null;
             pbLoading.Visibility = Visibility.Visible;
-            try {
-                Singletone.Course.Load(await CbrApi.GetDailyQuotation(DateTime.Today));
-            } catch { }
+            await Singletone.LoadCourse();
             if (Singletone.Course.Count == 0)
                 icRates.ItemsSource = new string[] { "Ошибка загрузки!" };
             else
