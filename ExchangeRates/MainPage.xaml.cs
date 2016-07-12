@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -34,24 +33,24 @@ namespace ExchangeRates
             svMenu.IsPaneOpen = true;
         }
 
-        private void tbBack_Click(object sender, RoutedEventArgs e)
+        private void spBack_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
         }
 
-        private void tbSettings_Click(object sender, RoutedEventArgs e)
+        private void spSettings_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
             Frame.Navigate(typeof(SettingsPage));
         }
 
-        private async void tbRefresh_Click(object sender, RoutedEventArgs e)
+        private async void spRefresh_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
             await ReloadData();
         }
 
-        private void tbAbout_Click(object sender, RoutedEventArgs e)
+        private void spAbout_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
         }

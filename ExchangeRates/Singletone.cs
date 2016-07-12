@@ -16,7 +16,7 @@ namespace ExchangeRates
         static public int TileLinesCounter = 0;
         static public readonly int TileLinesMax = 4;
         static public string[] TileLines = new string[4];
-        static public TimeSpan UpdatePeriodicity = new TimeSpan(1, 0, 0);
+        static public TimeSpan UpdatePeriodicity = new TimeSpan(0, 15, 0); //new TimeSpan(6, 0, 0);
 
         static DateTime LastUpdate;
         static readonly string SettingsFileName = "Settings.xml";
@@ -50,6 +50,8 @@ namespace ExchangeRates
             TileLinesCounter = int.Parse(node["TileLinesCounter"].InnerText);
             for (int i = 0; i < TileLinesMax; ++i)
                 TileLines[i] = node[$"TileLine{i}"].InnerText;
+            string s = node["UpdatePeriodicity"].InnerText;
+            //UpdatePeriodicity = new TimeSpan(0, int.Parse(s), 0);
         }
 
         static public async Task SaveSettings()
@@ -57,7 +59,7 @@ namespace ExchangeRates
             string data = $@"<?xml version='1.0' encoding='utf-8' ?><Settings><AppTheme>{(int)AppTheme}</AppTheme><TileLinesCounter>{TileLinesCounter}</TileLinesCounter>";
             for (int i = 0; i < TileLinesMax; ++i)
                 data += $@"<TileLine{i}>{TileLines[i]}</TileLine{i}>";
-            data += $@"</Settings>";
+            data += $@"<UpdatePeriodicity>{UpdatePeriodicity.TotalMinutes}</UpdatePeriodicity></Settings>";
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(data);
             await SaveXmlFileToLocalStorage(SettingsFileName, xml);
@@ -67,7 +69,7 @@ namespace ExchangeRates
         {
             if (DateTime.Now < LastUpdate + UpdatePeriodicity) return;
 
-            bool tileNeedUpdating = false;
+            bool tileNeedUpdating = true; // false;
 
             CbrCourse tempLastCourse = new CbrCourse();
             try { tempLastCourse.Load(await CbrApi.GetDailyQuotation()); }

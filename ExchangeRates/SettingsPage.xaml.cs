@@ -53,6 +53,12 @@ namespace ExchangeRates
                 }
             }
             Singletone.UpdateTiles();
+
+            if (Singletone.TileLinesCounter == 0)
+                await BackgroungTaskManager.RemoveBackgroundTaskAsync();
+            else
+                await BackgroungTaskManager.RegisterBackgroundTaskAsync();
+
             await Singletone.SaveSettings();
         }
     }
