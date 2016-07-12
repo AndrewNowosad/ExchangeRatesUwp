@@ -21,27 +21,39 @@
         </Grid.ColumnDefinitions>
         <Button Name="tbBack" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE72B;" Background="Transparent" Click="tbBack_Click"/>
         <TextBlock Grid.Column="2" Grid.Row="0" Text="Настройки" FontSize="30" VerticalAlignment="Center"/>
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Vertical">
-            <TextBlock FontSize="18">Тема оформления:</TextBlock>
-            <ComboBox Name="cbTheme" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="cbTheme_SelectionChanged">
-                <ComboBoxItem>По умолчанию</ComboBoxItem>
-                <ComboBoxItem>Светлая</ComboBoxItem>
-                <ComboBoxItem>Темная</ComboBoxItem>
-            </ComboBox>
-            <TextBlock FontSize="18" TextWrapping="Wrap">Выберите до четырех валют для отображения на живой плитке:</TextBlock>
-            <TextBlock FontSize="12" TextWrapping="Wrap">На маленькой плитке будет отображаться только первый элемент</TextBlock>
-            <ComboBox Name="cbTileValute[0]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
-            </ComboBox>
-            <ComboBox Name="cbTileValute[1]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False">
-                <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
-            </ComboBox>
-            <ComboBox Name="cbTileValute[2]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False">
-                <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
-            </ComboBox>
-            <ComboBox Name="cbTileValute[3]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False">
-                <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <TextBlock FontSize="18" Margin="0,0,0,10">Тема оформления:</TextBlock>
+                <ComboBox Name="cbTheme" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="cbTheme_SelectionChanged" Margin="0,0,0,10">
+                    <ComboBoxItem>По умолчанию</ComboBoxItem>
+                    <ComboBoxItem>Светлая</ComboBoxItem>
+                    <ComboBoxItem>Темная</ComboBoxItem>
+                </ComboBox>
+                <TextBlock FontSize="18" TextWrapping="Wrap" Margin="0,0,0,10">Выберите до четырех валют для отображения на живой плитке:</TextBlock>
+                <TextBlock FontSize="12" TextWrapping="Wrap" Margin="0,0,0,10">На маленькой плитке будет отображен только первый элемент</TextBlock>
+                <ComboBox Name="cbTileValute[0]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,0,0,10">
+                    <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Name="cbTileValute[1]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False" Margin="0,0,0,10">
+                    <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Name="cbTileValute[2]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False" Margin="0,0,0,10">
+                    <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Name="cbTileValute[3]" SelectedIndex="0" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False" Margin="0,0,0,10">
+                    <ComboBoxItem Foreground="Gray">(Нет)</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Name="tbUpdatePeriodicityTip1" FontSize="18" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,10">Настройте периодичность обновления живой плитки:</TextBlock>
+                <TextBlock Name="tbUpdatePeriodicityTip2" FontSize="12" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,10">Следует иметь ввиду, что котировки валют на следующий день (или на несколько выходных или праздничных дней идущих подряд) обновляются на сервере один раз в сутки в промежутке 12:00-14:00 по московскому времени, поэтому частое обновление в целях энергосбережения не рекомендуется</TextBlock>
+                <ComboBox Name="cbUpdatePeriodicity" SelectedIndex="3" FontSize="18" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" IsEnabled="False">
+                    <ComboBoxItem>Каждые 30 минут</ComboBoxItem>
+                    <ComboBoxItem>Каждый час</ComboBoxItem>
+                    <ComboBoxItem>Каждые 3 часа</ComboBoxItem>
+                    <ComboBoxItem>Каждые 6 часов</ComboBoxItem>
+                    <ComboBoxItem>Каждые 12 часов</ComboBoxItem>
+                    <ComboBoxItem>Каждые 24 часа</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

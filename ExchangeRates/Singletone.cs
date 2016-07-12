@@ -16,7 +16,7 @@ namespace ExchangeRates
         static public int TileLinesCounter = 0;
         static public readonly int TileLinesMax = 4;
         static public string[] TileLines = new string[4];
-        static public TimeSpan UpdatePeriodicity = new TimeSpan(0, 15, 0); //new TimeSpan(6, 0, 0);
+        static public TimeSpan UpdatePeriodicity = new TimeSpan(6, 0, 0);
 
         static DateTime LastUpdate;
         static readonly string SettingsFileName = "Settings.xml";
@@ -59,7 +59,7 @@ namespace ExchangeRates
             string data = $@"<?xml version='1.0' encoding='utf-8' ?><Settings><AppTheme>{(int)AppTheme}</AppTheme><TileLinesCounter>{TileLinesCounter}</TileLinesCounter>";
             for (int i = 0; i < TileLinesMax; ++i)
                 data += $@"<TileLine{i}>{TileLines[i]}</TileLine{i}>";
-            data += $@"<UpdatePeriodicity>{UpdatePeriodicity.TotalMinutes}</UpdatePeriodicity></Settings>";
+            data += $@"<UpdatePeriodicity>{(int)UpdatePeriodicity.TotalMinutes}</UpdatePeriodicity></Settings>";
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(data);
             await SaveXmlFileToLocalStorage(SettingsFileName, xml);
@@ -152,8 +152,8 @@ namespace ExchangeRates
                 tileSmallContent += $@"</binding>";
             }
 
-            string tileMediumContent = $@"<binding template='TileMedium' branding='name'><text>Обновлено: {DateTime.Now:t}</text>"; //{caption}
-            string tileWideContent = $@"<binding template='TileWide' branding='name'><text>Обновлено: {DateTime.Now:t}</text>"; //{caption}
+            string tileMediumContent = $@"<binding template='TileMedium' branding='name'><text>{caption} {DateTime.Now:t}</text>";
+            string tileWideContent = $@"<binding template='TileWide' branding='name'><text>{caption} {DateTime.Now:t}</text>";
             for (int i = 0; i < TileLinesCounter; ++i)
             {
                 v = course[TileLines[i]];
@@ -166,7 +166,7 @@ namespace ExchangeRates
             tileWideContent += $@"</binding>";
             
             return
-                $@"<tile><visual displayName='Обновлено: {DateTime.Now:t}'>{tileSmallContent}{tileMediumContent}{tileWideContent}</visual></tile>";
+                $@"<tile><visual>{tileSmallContent}{tileMediumContent}{tileWideContent}</visual></tile>";
         }
     }
 }

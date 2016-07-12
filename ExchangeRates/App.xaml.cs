@@ -31,7 +31,7 @@ namespace ExchangeRates
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             await Singletone.LoadSettings();
-            await Singletone.LoadCourse();
+            //await Singletone.LoadCourse();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
