@@ -51,7 +51,7 @@ namespace ExchangeRates
             for (int i = 0; i < TileLinesMax; ++i)
                 TileLines[i] = node[$"TileLine{i}"].InnerText;
             string s = node["UpdatePeriodicity"].InnerText;
-            //UpdatePeriodicity = new TimeSpan(0, int.Parse(s), 0);
+            UpdatePeriodicity = new TimeSpan(0, int.Parse(s), 0);
         }
 
         static public async Task SaveSettings()
@@ -120,28 +120,40 @@ namespace ExchangeRates
             updater.EnableNotificationQueue(true);
 
             var document = new Windows.Data.Xml.Dom.XmlDocument();
-            document.LoadXml(CreateTileLayout(Course, "Сегодня:"));
-            TileNotification notification = new TileNotification(document);
-            notification.Tag = "today";
-            notification.ExpirationTime = DateTime.Today.AddDays(1);
-            updater.Update(notification);
+            TileNotification notification;
 
-            if (LastCourse.Date != DateTime.Today.AddDays(1)) return;
-            document.LoadXml(CreateTileLayout(LastCourse, "Завтра:"));
+            if (LastCourse.Date == DateTime.Today.AddDays(1))
+            {
+                document.LoadXml(CreateTileLayout(LastCourse, "Завтра:", false));
+                notification = new TileNotification(document);
+                notification.Tag = "tomorrow";
+                notification.ExpirationTime = DateTime.Today.AddDays(1);
+                updater.Update(notification);
+            }
+
+            document.LoadXml(CreateTileLayout(Course, "Сегодня:", true));
             notification = new TileNotification(document);
-            notification.Tag = "tomorrow";
+            notification.Tag = "today";
             notification.ExpirationTime = DateTime.Today.AddDays(1);
             updater.Update(notification);
         }
 
-        static string CreateTileLayout(CbrCourse course, string caption)
+        static string CreateTileLayout(CbrCourse course, string caption, bool needUpdateSmallTile)
         {
-            Valute v = course[TileLines[0]];
-            string tileSmallContent =$@"<text hint-align='center' hint-style='base'>{v.CharCode}</text>
-                                        <text hint-align='center'>{v.ValueOf1Unit:0.00} &#8381;</text>";
+            Valute v;
 
-            string tileMediumContent = $@"<text>{caption}</text>";
-            string tileWideContent = $@"<text>{caption}</text>";
+            string tileSmallContent = string.Empty;
+            if (needUpdateSmallTile)
+            {
+                v = course[TileLines[0]];
+                tileSmallContent  = $@"<binding template='TileSmall' hint-textStacking='center'>";
+                tileSmallContent += $@"<text hint-align='center' hint-style='base'>{v.CharCode}</text>";
+                tileSmallContent += $@"<text hint-align='center'>{v.ValueOf1Unit:0.00} &#8381;</text>";
+                tileSmallContent += $@"</binding>";
+            }
+
+            string tileMediumContent = $@"<binding template='TileMedium' branding='name'><text>Обновлено: {DateTime.Now:t}</text>"; //{caption}
+            string tileWideContent = $@"<binding template='TileWide' branding='name'><text>Обновлено: {DateTime.Now:t}</text>"; //{caption}
             for (int i = 0; i < TileLinesCounter; ++i)
             {
                 v = course[TileLines[i]];
@@ -150,22 +162,11 @@ namespace ExchangeRates
                 tileWideContent +=
                     $@"<text hint-style='captionSubtle'>{v}</text>";
             }
-
-            string layout = $@"<tile>
-                                 <visual displayName='Обновлено: {DateTime.Now:t}'>
-                                   <binding template='TileSmall' hint-textStacking='center'>
-                                     {tileSmallContent}
-                                   </binding>
-                                   <binding template='TileMedium' branding='name'>
-                                     {tileMediumContent}
-                                   </binding>
-                                   <binding template='TileWide' branding='name'>
-                                     {tileWideContent}
-                                   </binding>
-                                 </visual>
-                               </tile>";
-
-            return layout;
+            tileMediumContent += $@"</binding>";
+            tileWideContent += $@"</binding>";
+            
+            return
+                $@"<tile><visual displayName='Обновлено: {DateTime.Now:t}'>{tileSmallContent}{tileMediumContent}{tileWideContent}</visual></tile>";
         }
     }
 }
