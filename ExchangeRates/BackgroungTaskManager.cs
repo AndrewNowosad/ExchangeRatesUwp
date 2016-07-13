@@ -35,10 +35,8 @@ namespace ExchangeRates
             taskBuilder.Name = TaskName;
             taskBuilder.TaskEntryPoint = typeof(BackgroundTask.UpdateTilesTask).ToString();
             var trigger = new TimeTrigger((uint)Singletone.UpdatePeriodicity.TotalMinutes, false);
-            //var trigger = new ApplicationTrigger();
             taskBuilder.SetTrigger(trigger);
             var task = taskBuilder.Register();
-            //await trigger.RequestAsync();
         }
     }
 }

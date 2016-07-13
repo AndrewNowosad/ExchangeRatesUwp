@@ -53,6 +53,7 @@ namespace ExchangeRates
         private void spAbout_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
+            Frame.Navigate(typeof(AboutPage));
         }
     }
 }
