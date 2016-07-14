@@ -10,8 +10,8 @@ namespace ExchangeRates
 {
     static class Singletone
     {
-        static public CbrCourse Course = new CbrCourse();     // This is the current course for today
-        static public CbrCourse LastCourse = new CbrCourse(); // This is the last available course
+        static public CbrCourse Course = new CbrCourse();
+        static public CbrCourse LastCourse = new CbrCourse();
         static public ElementTheme AppTheme = ElementTheme.Default;
         static public int TileLinesCounter = 0;
         static public readonly int TileLinesMax = 4;
@@ -69,7 +69,7 @@ namespace ExchangeRates
         {
             if (DateTime.Now < LastUpdate + UpdatePeriodicity) return;
 
-            bool tileNeedUpdating = true; // false;
+            bool tileNeedUpdating = false;
 
             CbrCourse tempLastCourse = new CbrCourse();
             try { tempLastCourse.Load(await CbrApi.GetDailyQuotation()); }

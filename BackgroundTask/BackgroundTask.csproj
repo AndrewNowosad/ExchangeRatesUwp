@@ -108,14 +108,20 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ExchangeRates\CbrApi.cs">
+      <Link>CbrApi.cs</Link>
+    </Compile>
+    <Compile Include="..\ExchangeRates\CbrCourse.cs">
+      <Link>CbrCourse.cs</Link>
+    </Compile>
     <Compile Include="..\ExchangeRates\Singletone.cs">
       <Link>Singletone.cs</Link>
     </Compile>
-    <Compile Include="CbrApi.cs" />
-    <Compile Include="CbrCourse.cs" />
+    <Compile Include="..\ExchangeRates\Valute.cs">
+      <Link>Valute.cs</Link>
+    </Compile>
     <Compile Include="UpdateTilesTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Valute.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using Windows.ApplicationModel.Store;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,9 +14,6 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace ExchangeRates
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AboutPage : Page
     {
         DispatcherTimer timer;
@@ -27,7 +29,7 @@ namespace ExchangeRates
                 iLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/LogoAbout.png"));
             else
                 iLogo.Source = new BitmapImage(new Uri("ms-appx:///Assets/LogoAboutBlack.png"));
-            
+
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             timer.Tick += Timer_Tick;
@@ -60,6 +62,31 @@ namespace ExchangeRates
         private async void btMail_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri($@"mailto://nowosad@inbox.ru"));
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            string version = "";
+            var uri = new Uri("ms-appx:///AppxManifest.xml");
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            using (var rastream = await file.OpenReadAsync())
+            using (var appManifestStream = rastream.AsStreamForRead())
+            {
+                using (var reader = XmlReader.Create(appManifestStream, new XmlReaderSettings { IgnoreWhitespace = true, IgnoreComments = true }))
+                {
+                    var doc = XDocument.Load(reader);
+                    var app = doc.Descendants(doc.Root.Name.Namespace + "Identity").FirstOrDefault();
+                    if (app != null)
+                    {
+                        var versionAttribute = app.Attribute("Version");
+                        if (versionAttribute != null)
+                        {
+                            version = versionAttribute.Value;
+                        }
+                    }
+                }
+            }
+            tbVer.Text = $"Версия: {version}";
         }
     }
 }
