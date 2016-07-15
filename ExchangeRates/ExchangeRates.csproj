@@ -16,8 +16,11 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>ExchangeRates_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>0C397B28FD0F47F798A6ABBFBEDD72F2DBBB43EE</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>ExchangeRates_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>6819507D31D1D3F444F08D604A72FC30B9A00271</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -90,6 +93,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="ExchangeRates_StoreKey.pfx" />
     <None Include="ExchangeRates_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
@@ -132,6 +136,7 @@
     <Content Include="Assets\Square71x71Logo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
