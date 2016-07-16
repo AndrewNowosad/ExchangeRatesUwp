@@ -56,12 +56,12 @@ namespace ExchangeRates
 
         private async void btReview_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri($@"ms-windows-store://review/?ProductId={CurrentApp.AppId}"));
+            await Launcher.LaunchUriAsync(new Uri($@"ms-windows-store:reviewapp?appid={CurrentApp.AppId}"));
         }
 
         private async void btMail_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri($@"mailto://nowosad@inbox.ru"));
+            await Launcher.LaunchUriAsync(new Uri($@"mailto:nowosad@inbox.ru"));
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

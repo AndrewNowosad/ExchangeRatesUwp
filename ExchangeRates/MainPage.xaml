@@ -44,7 +44,17 @@
                 <Button Name="tbPane" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE700;" Background="Transparent" Click="tbPane_Click"/>
                 <TextBlock Grid.Column="2" Grid.Row="0" Text="Курсы валют ЦБ РФ" FontSize="30" VerticalAlignment="Center"/>
                 <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
-                    <ItemsControl Name="icRates" FontSize="18"/>
+                    <ItemsControl Name="icRates" FontSize="18" Tapped="icRates_Tapped">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout x:Name="flyout">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock>Текст 1</TextBlock>
+                                    <TextBlock>Текст 2</TextBlock>
+                                    <TextBlock>Текст 3</TextBlock>
+                                </StackPanel>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </ItemsControl>
                 </ScrollViewer>
                 <ProgressBar Name="pbLoading" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" IsIndeterminate="True" VerticalAlignment="Center"/>
             </Grid>

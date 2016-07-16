@@ -85,7 +85,7 @@ namespace ExchangeRates
             if (Course.Date < DateTime.Today)
             {
                 tileNeedUpdating = true;
-                if (LastCourse.Date == DateTime.Today)
+                if (LastCourse.Date <= DateTime.Today)
                 {
                     Course = LastCourse;
                     await SaveXmlFileToLocalStorage(CurrentCourseFileName, Course.GetXml());

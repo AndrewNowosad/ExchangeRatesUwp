@@ -55,5 +55,10 @@ namespace ExchangeRates
             svMenu.IsPaneOpen = false;
             Frame.Navigate(typeof(AboutPage));
         }
+
+        private void icRates_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            flyout.ShowAt(icRates);
+        }
     }
 }
