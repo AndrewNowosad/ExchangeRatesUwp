@@ -69,40 +69,30 @@ namespace ExchangeRates
         {
             if (DateTime.Now < LastUpdate + UpdatePeriodicity) return;
 
-            bool tileNeedUpdating = false;
+            CbrCourse tempCourse = new CbrCourse();
 
-            CbrCourse tempLastCourse = new CbrCourse();
-            try { tempLastCourse.Load(await CbrApi.GetDailyQuotation()); }
-            catch { tempLastCourse.Load(await LoadXmlFileFromLocalStorage(LastCourseFileName)); }
-            if (tempLastCourse.Date != LastCourse.Date)
+            bool tileNeedUpdating = false;
+            try { tempCourse.Load(await CbrApi.GetDailyQuotation()); }
+            catch { tempCourse.Load(await LoadXmlFileFromLocalStorage(LastCourseFileName)); }
+            if (tempCourse.Date > LastCourse.Date)
             {
-                LastCourse = tempLastCourse;
+                LastCourse = tempCourse;
                 await SaveXmlFileToLocalStorage(LastCourseFileName, LastCourse.GetXml());
                 LastUpdate = DateTime.Now;
                 tileNeedUpdating = true;
             }
 
-            if (Course.Date < DateTime.Today)
+            if (tempCourse.Date > DateTime.Today)
             {
+                try { tempCourse.Load(await CbrApi.GetDailyQuotation(DateTime.Today)); }
+                catch { tempCourse.Load(await LoadXmlFileFromLocalStorage(CurrentCourseFileName)); }
+            }
+            if (tempCourse.Date > Course.Date)
+            {
+                Course = tempCourse;
+                await SaveXmlFileToLocalStorage(CurrentCourseFileName, Course.GetXml());
+                LastUpdate = DateTime.Now;
                 tileNeedUpdating = true;
-                if (LastCourse.Date <= DateTime.Today)
-                {
-                    Course = LastCourse;
-                    await SaveXmlFileToLocalStorage(CurrentCourseFileName, Course.GetXml());
-                    LastUpdate = DateTime.Now;
-                }
-                else
-                {
-                    CbrCourse tempCurrentCourse = new CbrCourse();
-                    try { tempCurrentCourse.Load(await CbrApi.GetDailyQuotation(DateTime.Today)); }
-                    catch { tempCurrentCourse.Load(await LoadXmlFileFromLocalStorage(CurrentCourseFileName)); }
-                    if (tempCurrentCourse.Date == DateTime.Today)
-                    {
-                        Course = tempCurrentCourse;
-                        await SaveXmlFileToLocalStorage(CurrentCourseFileName, Course.GetXml());
-                        LastUpdate = DateTime.Now;
-                    }
-                }
             }
 
             if (tileNeedUpdating)

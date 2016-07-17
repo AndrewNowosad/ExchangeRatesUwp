@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 
 namespace ExchangeRates
 {
@@ -33,32 +35,45 @@ namespace ExchangeRates
             svMenu.IsPaneOpen = true;
         }
 
-        private void spBack_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void spBack_Tapped(object sender, TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
         }
 
-        private void spSettings_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void spSettings_Tapped(object sender, TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
             Frame.Navigate(typeof(SettingsPage));
         }
 
-        private async void spRefresh_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void spRefresh_Tapped(object sender, TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
             await ReloadData();
         }
 
-        private void spAbout_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void spAbout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             svMenu.IsPaneOpen = false;
             Frame.Navigate(typeof(AboutPage));
         }
 
-        private void icRates_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void tbValuteInfo_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            flyout.ShowAt(icRates);
+            if (Singletone.Course.Count == 0) return;
+            TextBlock textBlock = sender as TextBlock;
+            Valute valute = textBlock.DataContext as Valute;
+            tbDName.Width = Window.Current.Bounds.Width / 3;
+            tbDName.Text = $"{valute.Name}";
+            tbDStandart.Text = $"{valute.Nominal} {valute.CharCode} = {valute.Value} RUB";
+            tbDUnit.Text = $"1 {valute.CharCode} = {valute.ValueOf1Unit:0.0000} RUB";
+            tbDReciprocal.Text = $"1 RUB = {(1.0 / valute.ValueOf1Unit):0.0000} {valute.CharCode}";
+            FlyoutBase.ShowAttachedFlyout(textBlock);
+        }
+
+        private void spPop_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            (Resources["flyout"] as Flyout).Hide();
         }
     }
 }
