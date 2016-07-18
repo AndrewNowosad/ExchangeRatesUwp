@@ -84,6 +84,7 @@ namespace ExchangeRates
 
             if (tempCourse.Date > DateTime.Today)
             {
+                tempCourse = new CbrCourse();
                 try { tempCourse.Load(await CbrApi.GetDailyQuotation(DateTime.Today)); }
                 catch { tempCourse.Load(await LoadXmlFileFromLocalStorage(CurrentCourseFileName)); }
             }

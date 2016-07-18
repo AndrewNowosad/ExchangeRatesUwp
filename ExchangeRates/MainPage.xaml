@@ -10,10 +10,10 @@
     <Page.Resources>
         <Flyout x:Key="flyout" Placement="Bottom">
             <StackPanel Name="spPop" Orientation="Horizontal" BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1" Tapped="spPop_Tapped">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Name="spPopLeft" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Name="tbDName" FontSize="22" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Name="spPopRight" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Name="tbDStandart" Margin="5"/>
                     <TextBlock Name="tbDUnit" Margin="5"/>
                     <TextBlock Name="tbDReciprocal" Margin="5"/>

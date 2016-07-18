@@ -56,7 +56,7 @@ namespace ExchangeRates
 
         private async void btReview_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri($@"ms-windows-store:reviewapp?appid={CurrentApp.AppId}"));
+            await Launcher.LaunchUriAsync(CurrentApp.LinkUri);
         }
 
         private async void btMail_Click(object sender, RoutedEventArgs e)

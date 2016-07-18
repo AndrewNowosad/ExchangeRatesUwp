@@ -63,7 +63,8 @@ namespace ExchangeRates
             if (Singletone.Course.Count == 0) return;
             TextBlock textBlock = sender as TextBlock;
             Valute valute = textBlock.DataContext as Valute;
-            tbDName.Width = Window.Current.Bounds.Width / 3;
+            spPop.Width = Window.Current.Bounds.Width / 3 * 2 + 5;
+            spPopLeft.Width = spPopRight.Width = Window.Current.Bounds.Width / 3;
             tbDName.Text = $"{valute.Name}";
             tbDStandart.Text = $"{valute.Nominal} {valute.CharCode} = {valute.Value} RUB";
             tbDUnit.Text = $"1 {valute.CharCode} = {valute.ValueOf1Unit:0.0000} RUB";
