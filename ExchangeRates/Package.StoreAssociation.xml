@@ -361,8 +361,10 @@
     <MainPackageIdentityName>19442AndrewNowosad.ExchangeRatesCBRF</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>ExchangeRatesCBRF</ReservedName>
+      <ReservedName>Курсы валют ЦБРФ</ReservedName>
+      <ReservedName>Мои лекарства</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames />
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4T03H" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH4T03H" />
 </StoreAssociation>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19442AndrewNowosad.ExchangeRatesCBRF" Publisher="CN=7DE060FB-F99F-4550-888B-8F2B2359EEA2" Version="1.0.0.0" />
+  <Identity Name="19442AndrewNowosad.ExchangeRatesCBRF" Publisher="CN=7DE060FB-F99F-4550-888B-8F2B2359EEA2" Version="1.0.1.0" />
   <mp:PhoneIdentity PhoneProductId="4134d62e-1217-4d7c-b18e-882c84087f68" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>ExchangeRatesCBRF</DisplayName>
+    <DisplayName>Курсы валют ЦБРФ</DisplayName>
     <PublisherDisplayName>Andrew Nowosad</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="ExchangeRates.App">
-      <uap:VisualElements DisplayName="Курсы валют ЦБ РФ" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Приложение получает данные о котировках из открытого API Центрального Банка РФ. Приложение обладает простым и лаконичным интерфейсом, основная цель приложения - предоставление информации о котировках валют на автообновляемой живой плитке стартового экрана." BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Курсы валют ЦБРФ" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Приложение получает данные о котировках из открытого API Центрального Банка РФ. Приложение обладает простым и лаконичным интерфейсом, основная цель приложения - предоставление информации о котировках валют на автообновляемой живой плитке стартового экрана." BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Курсы валют" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />

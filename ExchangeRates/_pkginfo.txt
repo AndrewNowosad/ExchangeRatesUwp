@@ -1,1 +1,1 @@
-C:\Users\nowos\Documents\Visual Studio 2015\Projects\VideoSharp\ExchangeRates\ExchangeRates\AppPackages\ExchangeRates_1.0.0.0\ExchangeRates_1.0.0.0_x86_x64_arm.appxbundle
+C:\Users\nowos\Documents\Visual Studio 2015\Projects\VideoSharp\ExchangeRates\ExchangeRates\AppPackages\ExchangeRates_1.0.1.0\ExchangeRates_1.0.1.0_x86_x64_arm.appxbundle
