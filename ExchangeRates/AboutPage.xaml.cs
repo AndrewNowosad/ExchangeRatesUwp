@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using Windows.ApplicationModel.Store;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -56,7 +55,7 @@ namespace ExchangeRates
 
         private async void btReview_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(CurrentApp.LinkUri);
+            await Singletone.GoToStoreForReview();
         }
 
         private async void btMail_Click(object sender, RoutedEventArgs e)

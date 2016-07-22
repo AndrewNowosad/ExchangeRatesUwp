@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 
@@ -20,6 +21,7 @@ namespace ExchangeRates
 
         static DateTime LastUpdate;
         static readonly string SettingsFileName = "Settings.xml";
+        static readonly string ReviewFileName = "Review.xml";
         static readonly string LastCourseFileName = "LastCourse.xml";
         static readonly string CurrentCourseFileName = "CurrentCourse.xml";
 
@@ -63,6 +65,37 @@ namespace ExchangeRates
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(data);
             await SaveXmlFileToLocalStorage(SettingsFileName, xml);
+        }
+
+        static public async Task<bool> GetReviewInfo()
+        {
+            bool reviewExist = false;
+            int startCount = 0;
+            XmlDocument xml = await LoadXmlFileFromLocalStorage(ReviewFileName);
+            if (xml != null)
+            {
+                XmlNode node = xml["Settings"];
+                reviewExist = bool.Parse(node["ReviewExist"].InnerText);
+                startCount = int.Parse(node["StartCount"].InnerText);
+            }
+            string data = $@"<?xml version='1.0' encoding='utf-8' ?><Settings><ReviewExist>{reviewExist}</ReviewExist><StartCount>{++startCount}</StartCount></Settings>";
+            xml = new XmlDocument();
+            xml.LoadXml(data);
+            await SaveXmlFileToLocalStorage(ReviewFileName, xml);
+            return (reviewExist) ? (startCount == 147) : (startCount % 30 == 12);
+        }
+
+        static public async Task SetReviewInfo()
+        {
+            string data = $@"<?xml version='1.0' encoding='utf-8' ?><Settings><ReviewExist>{true}</ReviewExist><StartCount>{0}</StartCount></Settings>";
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(data);
+            await SaveXmlFileToLocalStorage(ReviewFileName, xml);
+        }
+
+        static public async Task GoToStoreForReview()
+        {
+            await Launcher.LaunchUriAsync(new Uri(@"ms-windows-store://review/?ProductId=9NBLGGH4T03H"));
         }
 
         static public async Task LoadCourse()

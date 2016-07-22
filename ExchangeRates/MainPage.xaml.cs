@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,6 +18,18 @@ namespace ExchangeRates
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await ReloadData();
+            if (await Singletone.GetReviewInfo())
+            {
+                MessageDialog dialog = new MessageDialog("Ваш конструктивный отзыв и оценка помогут разработчику задать приоритетное направление в развитии приложения, а также устранить ошибки и некорректное поведение", "Оставьте отзыв");
+                UICommand review = new UICommand("Оценить");
+                dialog.Commands.Add(review);
+                dialog.Commands.Add(new UICommand("Позже"));
+                if (await dialog.ShowAsync() == review)
+                {
+                    await Singletone.GoToStoreForReview();
+                    await Singletone.SetReviewInfo();
+                }
+            }
         }
 
         private async Task ReloadData()
