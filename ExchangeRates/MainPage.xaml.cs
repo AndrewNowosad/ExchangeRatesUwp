@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
 namespace ExchangeRates
@@ -25,10 +24,7 @@ namespace ExchangeRates
                 dialog.Commands.Add(review);
                 dialog.Commands.Add(new UICommand("Позже"));
                 if (await dialog.ShowAsync() == review)
-                {
                     await Singletone.GoToStoreForReview();
-                    await Singletone.SetReviewInfo();
-                }
             }
         }
 
@@ -75,20 +71,26 @@ namespace ExchangeRates
         private void tbValuteInfo_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (Singletone.Course.Count == 0) return;
+            if (puDetail.IsOpen) return;
             TextBlock textBlock = sender as TextBlock;
             Valute valute = textBlock.DataContext as Valute;
-            spPop.Width = Window.Current.Bounds.Width / 3 * 2 + 5;
-            spPopLeft.Width = spPopRight.Width = Window.Current.Bounds.Width / 3;
+            spPop.Width = Window.Current.Bounds.Width * 0.8 + 5;
+            spPopLeft.Width = spPopRight.Width = Window.Current.Bounds.Width * 0.4;
             tbDName.Text = $"{valute.Name}";
             tbDStandart.Text = $"{valute.Nominal} {valute.CharCode} = {valute.Value} RUB";
             tbDUnit.Text = $"1 {valute.CharCode} = {valute.ValueOf1Unit:0.0000} RUB";
             tbDReciprocal.Text = $"1 RUB = {(1.0 / valute.ValueOf1Unit):0.0000} {valute.CharCode}";
-            FlyoutBase.ShowAttachedFlyout(textBlock);
+            puDetail.VerticalOffset = Math.Min(e.GetPosition(svMenu).Y, Window.Current.Bounds.Height - 150);
+            puDetail.HorizontalOffset = -spPop.Width / 2;
+            ShowPopDetail = true;
         }
 
-        private void spPop_Tapped(object sender, TappedRoutedEventArgs e)
+        bool ShowPopDetail = false;
+
+        private void Page_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            (Resources["flyout"] as Flyout).Hide();
+            puDetail.IsOpen = ShowPopDetail;
+            ShowPopDetail = false;
         }
     }
 }

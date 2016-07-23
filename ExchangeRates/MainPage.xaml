@@ -5,22 +5,7 @@
     xmlns:local="using:ExchangeRates"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded">
-
-    <Page.Resources>
-        <Flyout x:Key="flyout" Placement="Bottom">
-            <StackPanel Name="spPop" Orientation="Horizontal" BorderBrush="{ThemeResource SystemAccentColor}" BorderThickness="1" Tapped="spPop_Tapped">
-                <StackPanel Name="spPopLeft" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Name="tbDName" FontSize="22" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Name="spPopRight" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Name="tbDStandart" Margin="5"/>
-                    <TextBlock Name="tbDUnit" Margin="5"/>
-                    <TextBlock Name="tbDReciprocal" Margin="5"/>
-                </StackPanel>
-            </StackPanel>
-        </Flyout>
-    </Page.Resources>
+    mc:Ignorable="d" Loaded="Page_Loaded" Tapped="Page_Tapped">
     
     <SplitView Name="svMenu" DisplayMode="Overlay" IsPaneOpen="False" CompactPaneLength="48" OpenPaneLength="200">
         <SplitView.Pane>
@@ -43,6 +28,7 @@
                 </StackPanel>
             </StackPanel>
         </SplitView.Pane>
+        
         <SplitView.Content>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
@@ -56,18 +42,37 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="24"/>
                 </Grid.ColumnDefinitions>
+                
                 <Button Name="tbPane" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE700;" Background="Transparent" Click="tbPane_Click"/>
+                
                 <TextBlock Grid.Column="2" Grid.Row="0" Text="Курсы валют ЦБ РФ" FontSize="30" VerticalAlignment="Center"/>
+                
                 <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
                     <ItemsControl Name="icRates">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Name="tbValuteInfo" Text="{Binding}" FontSize="18" FlyoutBase.AttachedFlyout="{StaticResource flyout}" Tapped="tbValuteInfo_Tapped"/>
+                                <TextBlock Name="tbValuteInfo" Text="{Binding}" FontSize="18" Tapped="tbValuteInfo_Tapped"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
+
                 <ProgressBar Name="pbLoading" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" IsIndeterminate="True" VerticalAlignment="Center"/>
+                
+                <Popup Name="puDetail" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Border BorderBrush="{ThemeResource SystemAccentColor}" Background="{ThemeResource SystemAltHighColor}" BorderThickness="2" Tapped="Page_Tapped">
+                        <StackPanel Name="spPop" Orientation="Horizontal">
+                            <StackPanel Name="spPopLeft" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Name="tbDName" FontSize="22" TextWrapping="Wrap" Margin="5" TextAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Name="spPopRight" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Name="tbDStandart" Margin="5"/>
+                                <TextBlock Name="tbDUnit" Margin="5"/>
+                                <TextBlock Name="tbDReciprocal" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Popup>
             </Grid>
         </SplitView.Content>
     </SplitView>

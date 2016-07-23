@@ -85,7 +85,7 @@ namespace ExchangeRates
             return (reviewExist) ? (startCount == 147) : (startCount % 30 == 12);
         }
 
-        static public async Task SetReviewInfo()
+        static async Task SetReviewInfo()
         {
             string data = $@"<?xml version='1.0' encoding='utf-8' ?><Settings><ReviewExist>{true}</ReviewExist><StartCount>{0}</StartCount></Settings>";
             XmlDocument xml = new XmlDocument();
@@ -96,6 +96,7 @@ namespace ExchangeRates
         static public async Task GoToStoreForReview()
         {
             await Launcher.LaunchUriAsync(new Uri(@"ms-windows-store://review/?ProductId=9NBLGGH4T03H"));
+            await SetReviewInfo();
         }
 
         static public async Task LoadCourse()
