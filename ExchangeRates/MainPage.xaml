@@ -5,27 +5,39 @@
     xmlns:local="using:ExchangeRates"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded" Tapped="Page_Tapped">
+    mc:Ignorable="d" Loaded="Page_Loaded" Tapped="Page_Tapped"
+    ManipulationMode="TranslateX,TranslateY" ManipulationStarted="Page_ManipulationStarted" ManipulationDelta="Page_ManipulationDelta" ManipulationCompleted="Page_ManipulationCompleted">
     
     <SplitView Name="svMenu" DisplayMode="Overlay" IsPaneOpen="False" CompactPaneLength="48" OpenPaneLength="200">
         <SplitView.Pane>
             <StackPanel Orientation="Vertical">
-                <StackPanel Name="spBack" Orientation="Horizontal" Tapped="spBack_Tapped">
-                    <Button MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE72B;" Background="Transparent"/>
-                    <Button MinHeight="48" MinWidth="152" FontSize="20" Content="Назад" Background="Transparent" HorizontalContentAlignment="Left" Padding="0"/>
-                </StackPanel>
-                <StackPanel Name="spSettings" Orientation="Horizontal" Tapped="spSettings_Tapped">
-                    <Button MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE713;" Background="Transparent"/>
-                    <Button MinHeight="48" MinWidth="152" FontSize="20" Content="Настройки" Background="Transparent" HorizontalContentAlignment="Left" Padding="0"/>
-                </StackPanel>
-                <StackPanel Name="spRefresh" Orientation="Horizontal" Tapped="spRefresh_Tapped">
-                    <Button MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE72C;" Background="Transparent"/>
-                    <Button MinHeight="48" MinWidth="152" FontSize="20" Content="Обновить" Background="Transparent" HorizontalContentAlignment="Left" Padding="0"/>
-                </StackPanel>
-                <StackPanel Name="spAbout" Orientation="Horizontal" Tapped="spAbout_Tapped">
-                    <Button MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE897;" Background="Transparent"/>
-                    <Button MinHeight="48" MinWidth="152" FontSize="20" Content="О программе" Background="Transparent" HorizontalContentAlignment="Left" Padding="0"/>
-                </StackPanel>
+                <Button Name="btBack" MinHeight="48" MinWidth="200" Background="Transparent" HorizontalContentAlignment="Left" Click="btBack_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE72B;"/>
+                        <TextBlock Margin="10,0" VerticalAlignment="Center" FontSize="20" Text="Назад"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Name="btSettings" MinHeight="48" MinWidth="200" Background="Transparent" HorizontalContentAlignment="Left" Click="btSettings_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE713;"/>
+                        <TextBlock Margin="10,0" VerticalAlignment="Center" FontSize="20" Text="Настройки"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Name="btRefresh" MinHeight="48" MinWidth="200" Background="Transparent" HorizontalContentAlignment="Left" Click="btRefresh_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE72C;"/>
+                        <TextBlock Margin="10,0" VerticalAlignment="Center" FontSize="20" Text="Обновить"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Name="btAbout" MinHeight="48" MinWidth="200" Background="Transparent" HorizontalContentAlignment="Left" Click="btAbout_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE897;"/>
+                        <TextBlock Margin="10,0" VerticalAlignment="Center" FontSize="20" Text="О программе"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </SplitView.Pane>
         
@@ -43,7 +55,7 @@
                     <ColumnDefinition Width="24"/>
                 </Grid.ColumnDefinitions>
                 
-                <Button Name="tbPane" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE700;" Background="Transparent" Click="tbPane_Click"/>
+                <Button Name="btPane" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" MinHeight="48" MinWidth="48" FontSize="20" FontFamily="{StaticResource SymbolThemeFontFamily}" Content="&#xE700;" Background="Transparent" Click="btPane_Click"/>
                 
                 <TextBlock Grid.Column="2" Grid.Row="0" Text="Курсы валют ЦБ РФ" FontSize="30" VerticalAlignment="Center"/>
                 

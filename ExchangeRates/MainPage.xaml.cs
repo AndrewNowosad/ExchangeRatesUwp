@@ -40,32 +40,9 @@ namespace ExchangeRates
             pbLoading.Visibility = Visibility.Collapsed;
         }
 
-        private void tbPane_Click(object sender, RoutedEventArgs e)
+        private void btPane_Click(object sender, RoutedEventArgs e)
         {
             svMenu.IsPaneOpen = true;
-        }
-
-        private void spBack_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            svMenu.IsPaneOpen = false;
-        }
-
-        private void spSettings_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            svMenu.IsPaneOpen = false;
-            Frame.Navigate(typeof(SettingsPage));
-        }
-
-        private async void spRefresh_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            svMenu.IsPaneOpen = false;
-            await ReloadData();
-        }
-
-        private void spAbout_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            svMenu.IsPaneOpen = false;
-            Frame.Navigate(typeof(AboutPage));
         }
 
         private void tbValuteInfo_Tapped(object sender, TappedRoutedEventArgs e)
@@ -77,6 +54,10 @@ namespace ExchangeRates
             spPop.Width = Window.Current.Bounds.Width * 0.8 + 5;
             spPopLeft.Width = spPopRight.Width = Window.Current.Bounds.Width * 0.4;
             tbDName.Text = $"{valute.Name}";
+            if (valute.Nominal != 1)
+                tbDStandart.Visibility = Visibility.Visible;
+            else
+                tbDStandart.Visibility = Visibility.Collapsed;
             tbDStandart.Text = $"{valute.Nominal} {valute.CharCode} = {valute.Value} RUB";
             tbDUnit.Text = $"1 {valute.CharCode} = {valute.ValueOf1Unit:0.0000} RUB";
             tbDReciprocal.Text = $"1 RUB = {(1.0 / valute.ValueOf1Unit):0.0000} {valute.CharCode}";
@@ -91,6 +72,59 @@ namespace ExchangeRates
         {
             puDetail.IsOpen = ShowPopDetail;
             ShowPopDetail = false;
+        }
+
+        private void btBack_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+        }
+
+        private void btSettings_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+            Frame.Navigate(typeof(SettingsPage));
+        }
+
+        private async void btRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+            await ReloadData();
+        }
+
+        private void btAbout_Click(object sender, RoutedEventArgs e)
+        {
+            svMenu.IsPaneOpen = false;
+            Frame.Navigate(typeof(AboutPage));
+        }
+
+        struct Swipe
+        {
+            public double x1, x2, y1, y2;
+            public bool f;
+        }
+        Swipe swipe;
+
+        private void Page_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            swipe.x1 = e.Position.X;
+            swipe.y1 = e.Position.Y;
+            swipe.f = true;
+        }
+
+        private void Page_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (!swipe.f) return;
+            swipe.x2 = e.Position.X;
+            swipe.y2 = e.Position.Y;
+            if (Math.Abs(swipe.y1 - swipe.y2) > 100) swipe.f = false;
+        }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (!swipe.f) return;
+            swipe.f = false;
+            if (Math.Abs(swipe.x1 - swipe.x2) < 100) return;
+            svMenu.IsPaneOpen = swipe.x1 < swipe.x2;
         }
     }
 }
