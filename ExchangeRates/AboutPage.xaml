@@ -30,7 +30,7 @@
                 
                 <TextBlock Name="tbVer" Text="Версия:" FontSize="18" Margin="0,0,0,10"/>
                 
-                <TextBlock FontSize="15" Margin="0,0,0,10">© 2016 Andrew Nowosad</TextBlock>
+                <TextBlock FontSize="15" Margin="0,0,0,10">© 2016, 2017 Andrew Nowosad</TextBlock>
                 
                 <TextBlock FontSize="15" TextWrapping="Wrap" Margin="0,0,0,10">Приложение получает данные о котировках из открытого API Центрального Банка РФ</TextBlock>
                 
