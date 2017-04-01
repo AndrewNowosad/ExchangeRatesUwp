@@ -60,7 +60,7 @@ namespace ExchangeRates
 
         private async void btMail_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri($@"mailto:nowosad@inbox.ru"));
+            await Launcher.LaunchUriAsync(new Uri($@"mailto:nowosad@inbox.ru?subject=Курсы валют ЦБРФ"));
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
