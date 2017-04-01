@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19442AndrewNowosad.ExchangeRatesCBRF" Publisher="CN=7DE060FB-F99F-4550-888B-8F2B2359EEA2" Version="1.0.2.0" />
+  <Identity Name="19442AndrewNowosad.ExchangeRatesCBRF" Publisher="CN=7DE060FB-F99F-4550-888B-8F2B2359EEA2" Version="1.0.3.0" />
   <mp:PhoneIdentity PhoneProductId="4134d62e-1217-4d7c-b18e-882c84087f68" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Курсы валют ЦБРФ</DisplayName>
