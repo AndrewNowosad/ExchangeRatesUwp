@@ -17,6 +17,7 @@ namespace ExchangeRates
     {
         DispatcherTimer timer;
         int rot = 0;
+        string version = "";
 
         public AboutPage()
         {
@@ -60,12 +61,11 @@ namespace ExchangeRates
 
         private async void btMail_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri($@"mailto:nowosad@inbox.ru?subject=Курсы валют ЦБРФ"));
+            await Launcher.LaunchUriAsync(new Uri($@"mailto:nowosad@inbox.ru?subject=Курсы валют ЦБРФ, {version}"));
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string version = "";
             var uri = new Uri("ms-appx:///AppxManifest.xml");
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(uri);
             using (var rastream = await file.OpenReadAsync())

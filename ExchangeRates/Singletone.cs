@@ -177,8 +177,8 @@ namespace ExchangeRates
                 tileSmallContent += $@"</binding>";
             }
 
-            string tileMediumContent = $@"<binding template='TileMedium' branding='name'><text hint-style='body'>{caption}</text>";
-            string tileWideContent = $@"<binding template='TileWide' branding='name'><text hint-style='body'>{caption}</text>";
+            string tileMediumContent = $@"<binding template='TileMedium' branding='name'><text>{caption}</text>";
+            string tileWideContent = $@"<binding template='TileWide' branding='name'><text>{caption}</text>";
             for (int i = 0; i < TileLinesCounter; ++i)
             {
                 v = course[TileLines[i]];
